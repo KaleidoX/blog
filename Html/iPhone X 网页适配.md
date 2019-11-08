@@ -1,8 +1,8 @@
 ## 前言
 
-iPhoneX 取消了物理按键，改成底部小黑条，这一改动导致网页出现了比较尴尬的屏幕适配问题。对于网页而言，顶部（刘海部位）的适配问题浏览器已经做了处理，所以我们只需要关注底部与小黑条的适配问题即可（即常见的吸底导航、返回顶部等各种相对底部 fixed 定位的元素）。
+iPhone X 取消了物理按键，改成底部小黑条，这一改动导致网页出现了比较尴尬的屏幕适配问题。对于网页而言，顶部（刘海部位）的适配问题浏览器已经做了处理，所以我们只需要关注底部与小黑条的适配问题即可（即常见的吸底导航、返回顶部等各种相对底部 fixed 定位的元素）。
 
-![9ace019e9dc40a592a2ec39229fb6372](iPhoneX 网页适配.resources/4C6E7C9A-9741-43F1-B2DF-62DA20E6BA23.png)
+![9ace019e9dc40a592a2ec39229fb6372](iPhone X 网页适配.resources/4C6E7C9A-9741-43F1-B2DF-62DA20E6BA23.png)
 
 
 ## 适配相关知识
@@ -11,23 +11,23 @@ iPhoneX 取消了物理按键，改成底部小黑条，这一改动导致网页
 
 安全区域指的是一个可视窗口范围，处于安全区域的内容不受圆角（corners）、齐刘海（sensor housing）、小黑条（Home Indicator）影响。
 
-![7d2b50eacb8d366ac0ce9898dd0097a0](iPhoneX 网页适配.resources/2E06A867-B157-489C-917D-AE0371F0BC75.png)
+![7d2b50eacb8d366ac0ce9898dd0097a0](iPhone X 网页适配.resources/2E06A867-B157-489C-917D-AE0371F0BC75.png)
 
 也就是说，我们要做好适配，必须保证页面可视、可操作区域是在安全区域内。
 
-更详细说明，参考文档：[Human Interface Guidelines - iPhoneX](https://developer.apple.com/ios/human-interface-guidelines/overview/iphone-x/)
+更详细说明，参考文档：[Human Interface Guidelines - iPhone X](https://developer.apple.com/ios/human-interface-guidelines/overview/iphone-x/)
 
 ### viewport-fit
 
-iOS11 新增特性，苹果公司为了适配 iPhoneX 对现有 viewport meta 标签的一个扩展，用于设置网页在可视窗口的布局方式，可设置三个值：
+iOS11 新增特性，苹果公司为了适配 iPhone X 对现有 viewport meta 标签的一个扩展，用于设置网页在可视窗口的布局方式，可设置三个值：
 
 * contain: 可视窗口完全包含网页内容（左图）
 * cover：网页内容完全覆盖可视窗口（右图）
 * auto：默认值，跟 contain 表现一致
 
-![8ff992f4eaa4779bb92cb94aa3ffc66c](iPhoneX 网页适配.resources/868AC82C-B6DA-4DB3-AA4A-3DFA09807A2F.png)
+![8ff992f4eaa4779bb92cb94aa3ffc66c](iPhone X 网页适配.resources/868AC82C-B6DA-4DB3-AA4A-3DFA09807A2F.png)
 
-> 注意：网页默认不添加扩展的表现是 `viewport-fit=contain`，需要适配 iPhoneX 必须设置 `viewport-fit=cover`，这是适配的关键步骤。
+> 注意：网页默认不添加扩展的表现是 `viewport-fit=contain`，需要适配 iPhone X 必须设置 `viewport-fit=cover`，这是适配的关键步骤。
 
 更详细说明，参考文档：[viewport-fit-descriptor](https://www.w3.org/TR/css-round-display-1/#viewport-fit-descriptor)
 
@@ -88,7 +88,7 @@ body {
 
 #### 类型一：fixed 完全吸底元素（bottom = 0），比如下图这两种情况：
 
-![b35f1b5a9d110107bb539c2448bdfd62](iPhoneX 网页适配.resources/FB00C8C7-ECD0-4E66-925B-FFDFE6DD30DA.png)
+![b35f1b5a9d110107bb539c2448bdfd62](iPhone X 网页适配.resources/FB00C8C7-ECD0-4E66-925B-FFDFE6DD30DA.png)
 
 可以通过加内边距 padding 扩展高度：
 
@@ -154,7 +154,7 @@ body {
 
 ### 你也可以使用 @supports 隔离兼容样式
 
-如果只希望 iPhoneX 才需要新增适配样式，可以配合 `@supports` 来隔离兼容样式，当然这个处理对页面展示实际不会有任何影响：
+如果只希望 iPhone X 才需要新增适配样式，可以配合 `@supports` 来隔离兼容样式，当然这个处理对页面展示实际不会有任何影响：
 
 ``` css
 @supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
