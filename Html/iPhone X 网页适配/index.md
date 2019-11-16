@@ -20,9 +20,9 @@ iPhone X 取消了物理按键，改成底部小黑条，这一改动导致网�
 
 iOS11 新增特性，苹果公司为了适配 iPhone X 对现有 viewport meta 标签的一个扩展，用于设置网页在可视窗口的布局方式，可设置三个值：
 
-* contain: 可视窗口完全包含网页内容（左图）
-* cover：网页内容完全覆盖可视窗口（右图）
-* auto：默认值，跟 contain 表现一致
+- contain: 可视窗口完全包含网页内容（左图）
+- cover：网页内容完全覆盖可视窗口（右图）
+- auto：默认值，跟 contain 表现一致
 
 ![8ff992f4eaa4779bb92cb94aa3ffc66c](./assets/868AC82C-B6DA-4DB3-AA4A-3DFA09807A2F.png)
 
@@ -34,10 +34,10 @@ iOS11 新增特性，苹果公司为了适配 iPhone X 对现有 viewport meta �
 
 iOS11 新增特性，Webkit 的一个 CSS 函数，用于设定安全区域与边界的距离，有四个预定义的变量：
 
-* safe-area-inset-left：安全区域距离左边边界距离
-* safe-area-inset-right：安全区域距离右边边界距离
-* safe-area-inset-top：安全区域距离顶部边界距离
-* safe-area-inset-bottom：安全区域距离底部边界距离
+- safe-area-inset-left：安全区域距离左边边界距离
+- safe-area-inset-right：安全区域距离右边边界距离
+- safe-area-inset-top：安全区域距离顶部边界距离
+- safe-area-inset-bottom：安全区域距离底部边界距离
 
 这里我们只需要关注 `safe-area-inset-bottom` 这个变量，因为它对应的就是小黑条的高度（横竖屏时值不一样）。
 
@@ -49,7 +49,7 @@ iOS11 新增特性，Webkit 的一个 CSS 函数，用于设定安全区域与�
 
 这就意味着，之前使用的 `constant()` 在 iOS11.2 之后就不能使用的，但我们还是需要做向后兼容，像这样：
 
-``` css
+```css
 padding-bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
 padding-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
 ```
@@ -66,8 +66,8 @@ padding-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
 
 新增 `viweport-fit` 属性，使得页面内容完全覆盖整个窗口：
 
-``` html
-<meta name="viewport" content="width=device-width, viewport-fit=cover">
+```html
+<meta name="viewport" content="width=device-width, viewport-fit=cover" />
 ```
 
 前面也有提到过，只有设置了 `viewport-fit=cover`，才能使用 `env()`。
@@ -76,7 +76,7 @@ padding-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
 
 这一步根据实际页面场景选择，如果不设置这个值，可能存在小黑条遮挡页面最底部内容的情况。
 
-``` css
+```css
 body {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
@@ -91,8 +91,8 @@ body {
 
 可以通过加内边距 padding 扩展高度：
 
-``` css
-{
+```css
+ {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -100,10 +100,10 @@ body {
 
 或者通过计算函数 calc 覆盖原来高度：
 
-``` css
-{
-  height: calc(60px(假设值) + constant(safe-area-inset-bottom));
-  height: calc(60px(假设值) + env(safe-area-inset-bottom));
+```css
+ {
+  height: calc(60px (假设值) + constant(safe-area-inset-bottom));
+  height: calc(60px (假设值) + env(safe-area-inset-bottom));
 }
 ```
 
@@ -111,8 +111,8 @@ body {
 
 还有一种方案就是，可以通过新增一个新的元素（空的颜色块，主要用于小黑条高度的占位），然后吸底元素可以不改变高度只需要调整位置，像这样：
 
-``` css
-{
+```css
+ {
   margin-bottom: constant(safe-area-inset-bottom);
   margin-bottom: env(safe-area-inset-bottom);
 }
@@ -120,8 +120,8 @@ body {
 
 空的颜色块：
 
-``` css
-{
+```css
+ {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -135,8 +135,8 @@ body {
 
 像这种只是位置需要对应向上调整，可以仅通过外边距 margin 来处理：
 
-``` css
-{
+```css
+ {
   margin-bottom: constant(safe-area-inset-bottom);
   margin-bottom: env(safe-area-inset-bottom);
 }
@@ -144,10 +144,10 @@ body {
 
 或者，你也可以通过计算函数 calc 覆盖原来 bottom 值：
 
-``` css
-{
-  bottom: calc(50px(假设值) + constant(safe-area-inset-bottom));
-  bottom: calc(50px(假设值) + env(safe-area-inset-bottom));
+```css
+ {
+  bottom: calc(50px (假设值) + constant(safe-area-inset-bottom));
+  bottom: calc(50px (假设值) + env(safe-area-inset-bottom));
 }
 ```
 
@@ -155,8 +155,9 @@ body {
 
 如果只希望 iPhone X 才需要新增适配样式，可以配合 `@supports` 来隔离兼容样式，当然这个处理对页面展示实际不会有任何影响：
 
-``` css
-@supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
+```css
+@supports (bottom: constant(safe-area-inset-bottom)) or
+  (bottom: env(safe-area-inset-bottom)) {
   div {
     margin-bottom: constant(safe-area-inset-bottom);
     margin-bottom: env(safe-area-inset-bottom);
